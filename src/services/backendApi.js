@@ -6,8 +6,17 @@ const API = axios.create({
     baseURL
 })
 
-const getPlayerGame = (gameName, tagLine) => {
-    API.get(`getPlayerGame`, {params: {gameName, tagLine}}).then(response => console.log(response)).catch(response => console.log(error))
+const processAnswer =  (response) => {
+    console.log(response)
+    if (response.data) {
+        return response.data
+    }
+    return []
+}
+
+const getPlayerGame = async (gameName, tagLine) => {
+    const playerInfo = API.get(`getPlayerGame`, {params: {gameName, tagLine}}).then( (response) => {return  processAnswer(response)} ).catch(response => {console.log(error); return []})
+    return playerInfo
 }
 
 export {API, getPlayerGame}
