@@ -9,13 +9,18 @@ const API = axios.create({
 const processAnswer =  (response) => {
     console.log(response)
     if (response.data) {
-        return response.data
+        return { data: response.data }
     }
-    return []
+    return {data: []}
 }
 
 const getPlayerGame = async (gameName, tagLine) => {
-    const playerInfo = API.get(`getPlayerGame`, {params: {gameName, tagLine}}).then( (response) => {return  processAnswer(response)} ).catch(response => {console.log(error); return []})
+    const playerInfo = API.get(`getPlayerGame`, {params: {gameName, tagLine}})
+        .then( (response) => {return  processAnswer(response)} )
+        .catch(response => {
+            console.log(response); 
+            return { data: [], errorMessage: "couldnt find game or whatever"}
+        })
     return playerInfo
 }
 

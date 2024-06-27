@@ -21,9 +21,11 @@ export default {
         return `https://ddragon.leagueoflegends.com/cdn/14.13.1/img/spell/${this.spellInfo.image.full}`
     },
     spellCd() {
+
+        let timeString = ''
+        if (this.spellInfo) {
         const minutes = this.spellInfo.cooldown[0] / 60;
         const seconds = this.spellInfo.cooldown[0] % 60;
-        let timeString = ''
         if (minutes >= 1)
             timeString += `${minutes}:`
         if (seconds < 10)
@@ -32,6 +34,7 @@ export default {
             timeString += `${seconds}`
         if (timeString === "00")
             return ''
+        }
         return timeString
     }
   }
